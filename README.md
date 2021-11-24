@@ -19,8 +19,8 @@ firecracker --api-sock /tmp/firecracker.socket
 ```
 3. On the other one, run this go application: `go run .`
 
-Output shows we made 3 queries, and after they we still have 3 connections
-open.
+Output shows we made 3 queries, and after we are done with our queries, we still
+have 3 connections open.
 
 ```
 ❯ go run .
@@ -30,4 +30,17 @@ INFO[0000] Firecracker API response                      state="Not started"
 INFO[0000] Sleep a bit
 INFO[0001] Check connections                             pid=861112
 INFO[0001] Open connection                               count=3 pid=861112 target=/tmp/firecracker.socket
+```
+
+We get the same results if the MicroVM is running:
+
+```
+❯ sudo go run .
+[sudo] password for efertone:
+INFO[0000] Firecracker API response                      state=Running
+INFO[0000] Firecracker API response                      state=Running
+INFO[0000] Firecracker API response                      state=Running
+INFO[0000] Sleep a bit
+INFO[0001] Check connections                             pid=873512
+INFO[0001] Open connection                               count=3 pid=873512 target=/var/lib/flintlock/vm/ns1/mvm1/firecracker.sock
 ```
